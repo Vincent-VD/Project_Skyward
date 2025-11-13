@@ -42,7 +42,7 @@ public class PlayerBase : MonoBehaviour
 		// Asserts
 		Assert.IsNotNull(_playerTransform);
 		Assert.IsNotNull(_playerInput.currentActionMap);
-		Assert.AreEqual(_playerInput.currentActionMap?.name, "player");
+		Assert.AreEqual(_playerInput.currentActionMap, InputSystem.actions.FindActionMap("Player"));
 	}
 
 	void Update()
