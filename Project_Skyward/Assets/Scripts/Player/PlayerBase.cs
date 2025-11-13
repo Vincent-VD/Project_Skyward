@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerBase : MonoBehaviour
 {
-	[SerializeField] private float _moveSpeed = -5.0f;
+	[SerializeField] private float _moveSpeed = 5.0f;
 	[SerializeField] private float _cooldown = 1.0f;
 	[SerializeField] private SpriteRenderer _spriteRenderer;
 	[SerializeField] private float _animFrameTime = 0.2f;
