@@ -57,6 +57,7 @@ public class PlayerBase : MonoBehaviour
 			_currCooldown = 0.0f;
 		}
 
+		// Update sprite frames
 		if (_currAnimeFrameTime >= _animFrameTime)
 		{
 			_animFrame = (_animFrame + 1) % 8;
