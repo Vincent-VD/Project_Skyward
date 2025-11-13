@@ -52,7 +52,7 @@ public class PlayerBase : MonoBehaviour
 		}
 	}
 
-	private void OnMove(InputAction.CallbackContext context)
+	public void OnMove(InputAction.CallbackContext context)
 	{
 		var input = context.ReadValue<Vector2>();
 
