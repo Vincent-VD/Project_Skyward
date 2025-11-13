@@ -8,31 +8,9 @@ public class PlayerBase : MonoBehaviour
 	[SerializeField] private SpriteRenderer _spriteRenderer;
 	[SerializeField] private float _animFrameTime = 0.2f;
 
-	public enum MoveDir
-	{
-		None = -1,
-		Right,
-		RightUp,
-		Up,
-		LeftUp,
-		Left,
-		LeftDown,
-		Down,
-		DownRight,
-		Count = 8,
-	}
-
-	public enum MoveState
-	{
-		Idle,
-		Move,
-		Attack,
-		Count = 3
-	}
-
-	private SortedDictionary<MoveState, string> _moveStateMap = new SortedDictionary<MoveState, string>();
-	private MoveDir _moveDir = MoveDir.Right;
-	private MoveState _moveState = MoveState.Idle;
+	private SortedDictionary<MoveTypes.MoveState, string> _moveStateMap = new SortedDictionary<MoveTypes.MoveState, string>();
+	private MoveTypes.MoveDir _moveDir = MoveTypes.MoveDir.Right;
+	private MoveTypes.MoveState _moveState = MoveTypes.MoveState.Idle;
 
 	private PlayerInput _playerInput;
 	private float _currCooldown = .0f;
@@ -48,9 +26,9 @@ public class PlayerBase : MonoBehaviour
 		_playerInput.currentActionMap?.Enable();
 		
 		// Add state to string conversions
-		_moveStateMap.Add(MoveState.Idle, "Idle");
-		_moveStateMap.Add(MoveState.Move, "Move");
-		_moveStateMap.Add(MoveState.Attack, "Attack");
+		_moveStateMap.Add(MoveTypes.MoveState.Idle, "Idle");
+		_moveStateMap.Add(MoveTypes.MoveState.Move, "Move");
+		_moveStateMap.Add(MoveTypes.MoveState.Attack, "Attack");
 	}
 
 	void Update()
@@ -82,12 +60,12 @@ public class PlayerBase : MonoBehaviour
 		 float absY = Mathf.Abs(input.y);
 		if (absX < 0.05f & absY < 0.05f)
 		{
-			_moveState = MoveState.Idle;
+			_moveState = MoveTypes.MoveState.Idle;
 			_animFrame = 0;
 			return;
 		}
 		
-		MoveDir moveDir = MoveDir.None;
+		MoveTypes.MoveDir moveDir = MoveTypes.MoveDir.None;
 		
 		// k = tan(22.5°) ≈ 0.4142
 		// s = tan(67.5°) ≈ 2.4142
@@ -95,21 +73,21 @@ public class PlayerBase : MonoBehaviour
 		const float s = 2.41421356f;
 		if (absY <= k * absX)
 		{
-			moveDir = input.x >= 0 ? MoveDir.Right : MoveDir.Left;
+			moveDir = input.x >= 0 ? MoveTypes.MoveDir.Right : MoveTypes.MoveDir.Left;
 		}
 		else if (absY >= s * absX)
 		{
-			moveDir = input.y >= 0 ? MoveDir.Up : MoveDir.Down;
+			moveDir = input.y >= 0 ? MoveTypes.MoveDir.Up : MoveTypes.MoveDir.Down;
 		}
 		else
 		{
-			moveDir = input.x >= 0 ? (input.y >= 0 ? MoveDir.RightUp : MoveDir.DownRight)
-									: (input.y >= 0 ? MoveDir.LeftUp : MoveDir.LeftDown);
+			moveDir = input.x >= 0 ? (input.y >= 0 ? MoveTypes.MoveDir.RightUp : MoveTypes.MoveDir.DownRight)
+									: (input.y >= 0 ? MoveTypes.MoveDir.LeftUp : MoveTypes.MoveDir.LeftDown);
 				
 		}
 		
 		_moveDir = moveDir;
-		_moveState = MoveState.Move;
+		_moveState = MoveTypes.MoveState.Move;
 		
 		Sprite newSprite = SpriteManager.Instance.GetPlayerSprite(_moveState, _moveDir, _animFrame);
 		_spriteRenderer.sprite = newSprite;

@@ -10,7 +10,7 @@ public class SpriteManager : MonoBehaviour
 	[SerializeField] private DefaultAsset _playerIdleRoot = null;
 	[SerializeField] private DefaultAsset _playerMoveRoot = null;
     
-	private Sprite[][] _playerAssets = new Sprite[(int)PlayerBase.MoveState.Count][];
+	private Sprite[][] _playerAssets = new Sprite[(int)MoveTypes.MoveState.Count][];
 
 	private void Awake()
 	{
@@ -34,14 +34,14 @@ public class SpriteManager : MonoBehaviour
 		Sprite[] idleSprites = GetSpritesFromFolder(_playerIdleRoot);
 		Sprite[] moveSprites = GetSpritesFromFolder(_playerMoveRoot);
 
-		_playerAssets[(int)PlayerBase.MoveState.Attack] = attackSprites;
-		_playerAssets[(int)PlayerBase.MoveState.Idle] = idleSprites;
-		_playerAssets[(int)PlayerBase.MoveState.Move] = moveSprites;
+		_playerAssets[(int)MoveTypes.MoveState.Attack] = attackSprites;
+		_playerAssets[(int)MoveTypes.MoveState.Idle] = idleSprites;
+		_playerAssets[(int)MoveTypes.MoveState.Move] = moveSprites;
 	}
 
-	public Sprite GetPlayerSprite(PlayerBase.MoveState moveState, PlayerBase.MoveDir moveDir, int frame)
+	public Sprite GetPlayerSprite(MoveTypes.MoveState moveState, MoveTypes.MoveDir moveDir, int frame)
 	{
-		if (moveDir == PlayerBase.MoveDir.None)
+		if (moveDir == MoveTypes.MoveDir.None)
 		{
 			Debug.LogError("GetPlayerSprite called MoveDir.None");
 			return null;

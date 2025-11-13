@@ -10,7 +10,7 @@ public class SpriteRename : MonoBehaviour
 		var assetPaths = EditorHelper.GetFolderAssets();
 
 		// Nr of assets / 2 (png + .asset) / 8 (directions)
-		int animFrames = assetPaths.Length / (2 * (int)PlayerBase.MoveDir.Count);
+		int animFrames = assetPaths.Length / (2 * (int)MoveTypes.MoveDir.Count);
 		int currFrame = 0;
 		int currDir = 0;
 		string currMoveDir = currDir.ToString("00");
@@ -33,7 +33,7 @@ public class SpriteRename : MonoBehaviour
 			currFrame = (currFrame + 1) % animFrames;
 			if (currFrame == 0)
 			{
-				currDir = (currDir + 1) % (int)PlayerBase.MoveDir.Count;
+				currDir = (currDir + 1) % (int)MoveTypes.MoveDir.Count;
 			}
 			currMoveDir = currDir.ToString("00");
 
