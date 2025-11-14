@@ -120,7 +120,7 @@ public class PlayerBase : MonoBehaviour
 		if (_shouldMove)
 		{
 			Vector2 moveVec = _moveVec * (Time.fixedDeltaTime * _moveSpeed);
-			_playerTransform.position += new Vector3(-moveVec.y, 0.0f, moveVec.x);
+			_playerTransform.position += new Vector3(moveVec.x, 0.0f, moveVec.y);
 		}
 	}
 }
