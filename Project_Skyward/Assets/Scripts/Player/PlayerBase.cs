@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class PlayerBase : MonoBehaviour
 	[SerializeField] private float _cooldown = 1.0f;
 	[SerializeField] private SpriteRenderer _spriteRenderer;
 	[SerializeField] private float _animFrameTime = 0.2f;
+	[SerializeField] private BoxCollider _collider;
 
 	private SortedDictionary<MoveTypes.MoveState, string> _moveStateMap = new SortedDictionary<MoveTypes.MoveState, string>();
 	private MoveTypes.MoveDir _moveDir = MoveTypes.MoveDir.Right;
@@ -21,6 +23,7 @@ public class PlayerBase : MonoBehaviour
 	
 	private Transform _playerTransform;
 	private bool _shouldMove = false;
+	private bool _isOnWall = true;
 	private Vector2 _moveVec = Vector2.zero;
     
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -121,6 +124,23 @@ public class PlayerBase : MonoBehaviour
 		{
 			Vector2 moveVec = _moveVec * (Time.fixedDeltaTime * _moveSpeed);
 			_playerTransform.position += new Vector3(moveVec.x, 0.0f, moveVec.y);
+		}
+	}
+
+	private void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+		{
+			_isOnWall = true;
+			_shouldMove = false;
+		}
+	}
+
+	private void OnCollisionExit(Collision other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+		{
+			_isOnWall = false;
 		}
 	}
 }
