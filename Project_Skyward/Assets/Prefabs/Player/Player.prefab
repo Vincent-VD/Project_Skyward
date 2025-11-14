@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9030735534744626315}
   - component: {fileID: 9150889794594173180}
   - component: {fileID: 21015739427082762}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760246808577339582}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1710646, y: -0.6861027, z: 0.1710646, w: 0.6861027}
-  m_LocalPosition: {x: 5.64, y: 4.24, z: 0}
+  m_LocalRotation: {x: 0.24192187, y: 0, z: 0, w: 0.9702957}
+  m_LocalPosition: {x: 0, y: 4.5, z: -8.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5739619001963607093}
-  m_LocalEulerAnglesHint: {x: 28, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 28, y: 0, z: 0}
 --- !u!20 &9030735534744626315
 Camera:
   m_ObjectHideFlags: 0
@@ -148,7 +148,8 @@ GameObject:
   - component: {fileID: 5739619001963607093}
   - component: {fileID: 5230773271178709856}
   - component: {fileID: 7240738955768661432}
-  m_Layer: 0
+  - component: {fileID: 6522995300136077283}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,9 +185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d390dcecce9b02428d7a0595eb53b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBase
+  _moveSpeed: 5
   _cooldown: 1
   _spriteRenderer: {fileID: 5040686311319668355}
   _animFrameTime: 0.2
+  _collider: {fileID: 0}
 --- !u!114 &7240738955768661432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +284,33 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 9030735534744626315}
+--- !u!54 &6522995300136077283
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627619949857339489}
+  serializedVersion: 5
+  m_Mass: 85
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!1 &7500576710576541320
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +321,8 @@ GameObject:
   m_Component:
   - component: {fileID: 481578496434243704}
   - component: {fileID: 5040686311319668355}
-  m_Layer: 0
+  - component: {fileID: 427522274593486324}
+  m_Layer: 8
   m_Name: SpriteBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,13 +337,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7500576710576541320}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.806, z: 0}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5739619001963607093}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5040686311319668355
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -371,3 +402,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &427522274593486324
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7500576710576541320}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3909663, y: 0.9247465, z: 0.05989894}
+  m_Center: {x: 0.012478547, y: 0.0099510625, z: -0.005325758}
