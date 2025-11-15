@@ -1,29 +1,33 @@
 using UnityEditor;
 using UnityEngine;
 
-public class SpriteTrim : MonoBehaviour
+namespace Editor
 {
-	[MenuItem("Tools/Sprites/Convert To Sprite")]
-	private static void ConvertToSprite()
+	public class SpriteTrim : MonoBehaviour
 	{
-		// Convert GUIDs to asset paths
-		string[] assetPaths = EditorHelper.GetFolderAssets();
-		
-		foreach (string path in assetPaths)
+		[MenuItem("Tools/Sprites/Convert To Sprite")]
+		private static void ConvertToSprite()
 		{
-			Debug.Log(path);
-			if (!path.Contains(EditorHelper.pngExtension))
+			// Convert GUIDs to asset paths
+			string[] assetPaths = EditorHelper.GetFolderAssets();
+
+			foreach (string path in assetPaths)
 			{
-				continue;
+				Debug.Log(path);
+				if (!path.Contains(EditorHelper.pngExtension))
+				{
+					continue;
+				}
+				Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+				Vector2 pos = new Vector2(0, 0);
+				Vector2 size = new Vector2(texture.width, texture.height);
+				Sprite sprite = Sprite.Create(texture, new Rect(pos, size), new Vector2(0.5f, 0.5f),
+					pixelsPerUnit: 100);
+				AssetDatabase.CreateAsset(sprite, EditorHelper.EnsureAssetExtension(path));
+				AssetDatabase.SaveAssets();
+				AssetDatabase.Refresh();
 			}
-			Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-			Vector2 pos = new Vector2(0, 0);
-			Vector2 size = new Vector2(texture.width, texture.height);
-			Sprite sprite = Sprite.Create(texture, new Rect(pos, size), new Vector2(0.5f, 0.5f), pixelsPerUnit: 100);
-			AssetDatabase.CreateAsset(sprite, EditorHelper.EnsureAssetExtension(path));
-			AssetDatabase.SaveAssets();
-			AssetDatabase.Refresh();
+
 		}
-		
 	}
 }
