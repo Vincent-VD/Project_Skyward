@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoveTypes : MonoBehaviour
+namespace Structs
 {
 	public enum MoveDir
 	{
