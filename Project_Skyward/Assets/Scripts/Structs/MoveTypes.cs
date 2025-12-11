@@ -16,11 +16,15 @@ namespace Structs
 		Count = 8,
 	}
 
-	public enum MoveState
+	public enum BaseMoveStates
 	{
 		Idle,
 		Move,
-		Attack,
-		Count = 3
+		Attack1,
+		Attack2,
+		Attack3,
+		Special,
+		Stun,
+		Count
 	}
 }
