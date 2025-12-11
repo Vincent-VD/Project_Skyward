@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using Animators;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -67,6 +66,30 @@ namespace Player
 				_shouldMove = false;
 				return;
 			}
+			
+			Structs.MoveDir _moveDir;
+			
+			// Sprite logic
+			// k = tan(22.5°) ≈ 0.4142
+			// s = tan(67.5°) ≈ 2.4142
+			const float k = 0.41421356f;
+			const float s = 2.41421356f;
+			if (absY <= k * absX)
+			{
+				_moveDir = input.x >= 0 ? Structs.MoveDir.Right : Structs.MoveDir.Left;
+			}
+			else if (absY >= s * absX)
+			{
+				_moveDir = input.y >= 0 ? Structs.MoveDir.Up : Structs.MoveDir.Down;
+			}
+			else
+			{
+				_moveDir = input.x >= 0 ? (input.y >= 0 ? Structs.MoveDir.RightUp : Structs.MoveDir.DownRight)
+					: (input.y >= 0 ? Structs.MoveDir.LeftUp : Structs.MoveDir.LeftDown);
+				
+			}
+
+			GetComponentInChildren<BaseSpriteAnimator>().SetMoveDir(_moveDir);
 
 			// Update attack collider rotation
 			RotateAttackColliderOnMove(input);
@@ -78,6 +101,14 @@ namespace Player
 			{
 				Vector2 moveVec = _moveVec * (Time.fixedDeltaTime * _moveSpeed);
 				_playerTransform.position += new Vector3(moveVec.x, 0.0f, moveVec.y);
+				GetComponentInChildren<BaseSpriteAnimator>().RequestAnimChange(Structs.BaseMoveStates.Move);
+				GetComponentInChildren<BaseSpriteAnimator>().SetMoveSpeed(moveVec);
+			}
+			else
+			{
+				GetComponentInChildren<BaseSpriteAnimator>().RequestEndState(Structs.BaseMoveStates.Move);
+				GetComponentInChildren<BaseSpriteAnimator>().SetMoveSpeed(Vector2.zero);
+
 			}
 		}
 
