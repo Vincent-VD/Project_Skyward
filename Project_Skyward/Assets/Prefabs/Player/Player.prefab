@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   _attackCooldown: 1
-  _playerSpriteBody: {fileID: 5922078400005684840}
 --- !u!1 &2589935148132517511
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +328,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5922078400005684840}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerSpriteBody, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -446,7 +445,8 @@ GameObject:
   - component: {fileID: 481578496434243704}
   - component: {fileID: 5040686311319668355}
   - component: {fileID: 427522274593486324}
-  - component: {fileID: 5922078400005684840}
+  - component: {fileID: 8998485143497534067}
+  - component: {fileID: 1169997840780154454}
   m_Layer: 8
   m_Name: SpriteBody
   m_TagString: Untagged
@@ -516,7 +516,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e4eb687c877aa2e4ea03b941463723d7, type: 2}
+  m_Sprite: {fileID: -1404596181, guid: 32b11f8912a159e468419f3c01f98b2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -548,7 +548,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3909663, y: 0.9247465, z: 0.05989894}
   m_Center: {x: 0.012478547, y: 0.0099510625, z: -0.005325758}
---- !u!114 &5922078400005684840
+--- !u!114 &8998485143497534067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -557,7 +557,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 7500576710576541320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2e8bf746375ac24d87fab0906ca318d, type: 3}
+  m_Script: {fileID: 11500000, guid: 20ddbc872735ec44c9fdbcdb6deda4b6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpriteBody
+  m_EditorClassIdentifier: Assembly-CSharp::BaseSpriteAnimator
   _animFrameTime: 0.2
+  _animPriorities:
+  - moveState: 0
+    priority: 0
+  - moveState: 1
+    priority: 1
+  - moveState: 2
+    priority: 2
+  - moveState: 3
+    priority: 2
+  - moveState: 4
+    priority: 2
+  - moveState: 5
+    priority: 3
+  - moveState: 6
+    priority: 4
+  _animator: {fileID: 1169997840780154454}
+--- !u!95 &1169997840780154454
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7500576710576541320}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 714f0217043fff54490a3f82f5b2a457, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
