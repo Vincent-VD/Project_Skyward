@@ -24,6 +24,11 @@ namespace Player
 		private bool _isOnWall = true;
 		private Vector2 _moveVec = Vector2.zero;
 
+		private bool _isGrounded = false;
+		
+		private float _currJumpSpeed = 0.0f;
+		
+
 		// Start is called once before the first execution of Update after the MonoBehaviour is created
 		void Start()
 		{
@@ -98,6 +103,12 @@ namespace Player
 			RotateAttackColliderOnMove(input);
 		}
 
+		public void OnJump(InputAction.CallbackContext context)
+		{
+			_currJumpSpeed = _baseJumpSpeed;
+			_isGrounded = false;
+		}
+
 		private void FixedUpdate()
 		{
 			if (_shouldMove)
@@ -113,6 +124,11 @@ namespace Player
 				_animator.SetMoveSpeed(Vector2.zero);
 			}
 
+			if (!_isGrounded)
+			{
+				_currJumpSpeed += -_gravity * Time.fixedDeltaTime;
+				Vector3 vertMove = new Vector3(0.0f, 1.0f, 0.0f) * (_currJumpSpeed * Time.fixedDeltaTime);
+				_playerTransform.position += vertMove;
 			}
 		}
 
@@ -123,6 +139,11 @@ namespace Player
 				_isOnWall = true;
 				_shouldMove = false;
 			}
+
+			if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+			{
+				_isGrounded = true;
+			}
 		}
 
 		private void OnCollisionExit(Collision other)
@@ -130,6 +151,11 @@ namespace Player
 			if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
 			{
 				_isOnWall = false;
+			}
+			
+			if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+			{
+				_isGrounded = false;
 			}
 		}
 
