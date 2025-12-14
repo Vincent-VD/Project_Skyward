@@ -7,11 +7,14 @@ namespace Player
 {
 	public class PlayerBase : MonoBehaviour
 	{
-		[SerializeField] private float _moveSpeed = 5.0f;
+		[SerializeField, Header("Movement")] private float _moveSpeed = 5.0f;
+		[SerializeField, Header("Jump")] private float _baseJumpSpeed = 10.0f;
+		[SerializeField] private float _gravity = 9.81f;
 		[SerializeField] private float _cooldown = 1.0f;
-		[SerializeField] private BoxCollider _bodyCollider;
+		[SerializeField, Header("Other Components")] private BoxCollider _bodyCollider;
 		[SerializeField] private GameObject _attackRoot;
-
+		[SerializeField] private BaseSpriteAnimator _animator;
+		
 		private PlayerInput _playerInput;
 
 		private float _currCooldown = .0f;
