@@ -104,13 +104,14 @@ namespace Player
 			{
 				Vector2 moveVec = _moveVec * (Time.fixedDeltaTime * _moveSpeed);
 				_playerTransform.position += new Vector3(moveVec.x, 0.0f, moveVec.y);
-				GetComponentInChildren<BaseSpriteAnimator>().RequestAnimChange(Structs.BaseMoveStates.Move);
-				GetComponentInChildren<BaseSpriteAnimator>().SetMoveSpeed(moveVec);
+				_animator.RequestAnimChange(Structs.BaseMoveStates.Move);
+				_animator.SetMoveSpeed(moveVec);
 			}
 			else
 			{
-				GetComponentInChildren<BaseSpriteAnimator>().RequestEndState(Structs.BaseMoveStates.Move);
-				GetComponentInChildren<BaseSpriteAnimator>().SetMoveSpeed(Vector2.zero);
+				_animator.RequestEndState(Structs.BaseMoveStates.Move);
+				_animator.SetMoveSpeed(Vector2.zero);
+			}
 
 			}
 		}
