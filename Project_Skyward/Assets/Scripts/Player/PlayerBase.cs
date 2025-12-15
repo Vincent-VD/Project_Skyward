@@ -1,5 +1,8 @@
+using System;
 using Animators;
 using NUnit.Framework;
+using Unity.Collections;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +13,8 @@ namespace Player
 		[SerializeField, Header("Movement")] private float _moveSpeed = 5.0f;
 		[SerializeField, Header("Jump")] private float _baseJumpSpeed = 10.0f;
 		[SerializeField] private float _gravity = 9.81f;
-		[SerializeField] private float _cooldown = 1.0f;
+		[SerializeField] private float _jumpTime = 1.5f;
+		[SerializeField] private AnimationCurve _jumpCurve;
 		[SerializeField, Header("Other Components")] private BoxCollider _bodyCollider;
 		[SerializeField] private GameObject _attackRoot;
 		[SerializeField] private BaseSpriteAnimator _animator;
@@ -24,9 +28,13 @@ namespace Player
 		private bool _isOnWall = true;
 		private Vector2 _moveVec = Vector2.zero;
 
-		private bool _isGrounded = false;
+		private bool _isGrounded = true;
 		
 		private float _currJumpSpeed = 0.0f;
+		private float _currJumpTime = 0.0f;
+		
+		private bool bOnce = false;
+
 		
 
 		// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -105,7 +113,14 @@ namespace Player
 
 		public void OnJump(InputAction.CallbackContext context)
 		{
+			if (!_isGrounded)
+			{
+				return;
+			}
+			
 			_currJumpSpeed = _baseJumpSpeed;
+			_currJumpTime = 0.0f;
+			_gravity = 9.81f;
 			_isGrounded = false;
 		}
 
@@ -126,9 +141,15 @@ namespace Player
 
 			if (!_isGrounded)
 			{
-				_currJumpSpeed += -_gravity * Time.fixedDeltaTime;
-				Vector3 vertMove = new Vector3(0.0f, 1.0f, 0.0f) * (_currJumpSpeed * Time.fixedDeltaTime);
+				_currJumpTime += Time.deltaTime;
+				float currJumpTime = Mathf.Clamp01(_currJumpTime / _jumpTime);
+
+				float curve = _jumpCurve.Evaluate(currJumpTime);
+				_currJumpSpeed += -_gravity * curve * Time.fixedDeltaTime;
+				Vector3 vertMove = Vector3.up * (_currJumpSpeed * Time.fixedDeltaTime);
 				_playerTransform.position += vertMove;
+				
+				_animator.RequestAnimChange(Structs.BaseMoveStates.Jump);
 			}
 		}
 
@@ -143,6 +164,7 @@ namespace Player
 			if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
 			{
 				_isGrounded = true;
+				_animator.RequestEndState(Structs.BaseMoveStates.Jump);
 			}
 		}
 
@@ -151,11 +173,6 @@ namespace Player
 			if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
 			{
 				_isOnWall = false;
-			}
-			
-			if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-			{
-				_isGrounded = false;
 			}
 		}
 
