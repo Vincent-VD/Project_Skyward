@@ -54,18 +54,6 @@ namespace Player
 			Assert.AreEqual(_playerInput.currentActionMap, InputSystem.actions.FindActionMap("Player"));
 		}
 
-		void Update()
-		{
-			_currCooldown += Time.deltaTime;
-
-			if (_currCooldown >= _cooldown)
-			{
-				/*GameObject dmgTree = Instantiate(_toSpawn, _launchPoint);*/
-				/*dmgTree.GetComponent<S_DamageTree>().Init(_elementType);*/
-				_currCooldown = 0.0f;
-			}
-		}
-
 		public void OnMove(InputAction.CallbackContext context)
 		{
 			var input = context.ReadValue<Vector2>();
