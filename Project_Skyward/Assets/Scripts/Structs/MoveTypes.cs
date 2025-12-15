@@ -20,6 +20,7 @@ namespace Structs
 	{
 		Idle,
 		Move,
+		Jump,
 		Attack1,
 		Attack2,
 		Attack3,
