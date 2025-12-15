@@ -87,8 +87,7 @@ namespace Animators
 			if (newState != _moveState)
 			{
 				// Set anim graph states
-				_animator.SetBool("Move", newState == Structs.BaseMoveStates.Move);
-				_animator.SetBool("Jump", newState == Structs.BaseMoveStates.Jump);
+				_animator.SetInteger("MoveState", (int)newState);
 				
 				_moveStack.Push(_moveState);
 				_moveState = newState;
@@ -109,8 +108,7 @@ namespace Animators
 				return false;
 			
 			// Reset anim graph states
-			_animator.SetBool("Move", _moveStack.Peek() == Structs.BaseMoveStates.Move);
-			_animator.SetBool("Jump", _moveStack.Peek() == Structs.BaseMoveStates.Jump);
+			_animator.SetInteger("MoveState", (int)_moveStack.Peek());
 		
 			_moveState = _moveStack.Peek();
 			_moveStack.Pop();
