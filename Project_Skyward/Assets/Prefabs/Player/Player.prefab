@@ -286,9 +286,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBase
   _moveSpeed: 5
-  _cooldown: 1
+  _baseJumpSpeed: 9
+  _gravity: 9.8
+  _jumpTime: 1.2
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.4518486
+      outSlope: -1.4518486
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.34721383
+      value: 0.49589807
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19822325
+    - serializedVersion: 3
+      time: 0.67406976
+      value: 2.0099902
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -3.0987926
+      outSlope: -3.0987926
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _bodyCollider: {fileID: 427522274593486324}
   _attackRoot: {fileID: 2589935148132517511}
+  _animator: {fileID: 8998485143497534067}
 --- !u!114 &7240738955768661432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,18 +363,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5230773271178709856}
         m_TargetAssemblyTypeName: PlayerBase, Assembly-CSharp
-        m_MethodName: OnMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerSpriteBody, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -402,6 +435,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5230773271178709856}
+        m_TargetAssemblyTypeName: Player.PlayerBase, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 77961fe3-ca8f-474e-88f0-572c87b1bd89
+    m_ActionName: 'Player/Jump[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -429,7 +478,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
@@ -567,15 +616,17 @@ MonoBehaviour:
   - moveState: 1
     priority: 1
   - moveState: 2
-    priority: 2
-  - moveState: 3
-    priority: 2
-  - moveState: 4
-    priority: 2
-  - moveState: 5
     priority: 3
-  - moveState: 6
+  - moveState: 3
     priority: 4
+  - moveState: 4
+    priority: 4
+  - moveState: 5
+    priority: 4
+  - moveState: 6
+    priority: 5
+  - moveState: 7
+    priority: 9
   _animator: {fileID: 1169997840780154454}
 --- !u!95 &1169997840780154454
 Animator:
