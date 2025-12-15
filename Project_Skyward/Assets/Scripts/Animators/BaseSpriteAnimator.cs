@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -20,8 +21,8 @@ namespace Animators
 
 		private Structs.MoveDir _moveDir = Structs.MoveDir.Right;
 		private Structs.BaseMoveStates _moveState = Structs.BaseMoveStates.Idle;
-	
-		private Structs.BaseMoveStates _prevMoveState = Structs.BaseMoveStates.Idle;
+		
+		private Stack<Structs.BaseMoveStates> _moveStack = new Stack<Structs.BaseMoveStates>();
     
 		private int _animFrame = 0;
 		private float _currAnimeFrameTime = 0.0f;
@@ -59,7 +60,6 @@ namespace Animators
 			if (dir != _moveDir)
 			{
 				_animator.SetInteger("MoveDir", (int)dir);
-				Debug.Log((float)dir / (float)Structs.MoveDir.Count);
 				_animator.SetFloat("MoveDirFl", (float)dir / (float)Structs.MoveDir.Count);
 				_animator.SetTrigger("Right");
 			}
@@ -74,7 +74,6 @@ namespace Animators
 				_animator.SetFloat("MoveX", vec.x);
 				_animator.SetFloat("MoveY", vec.y);
 			}
-			_animator.SetBool("Move", vec != Vector2.zero);
 		}
 
 		// Request animation change, will not change to lower priority animation
@@ -87,34 +86,36 @@ namespace Animators
 
 			if (newState != _moveState)
 			{
-				Debug.Log("Update MoveState " + (int)newState);
-				_animator.SetInteger("MoveState", (int)newState);
-				_animator.SetTrigger("Right");
+				// Set anim graph states
+				_animator.SetBool("Move", newState == Structs.BaseMoveStates.Move);
+				_animator.SetBool("Jump", newState == Structs.BaseMoveStates.Jump);
 				
-				_prevMoveState = _moveState;
+				_moveStack.Push(_moveState);
 				_moveState = newState;
 				_animFrame = 0;
 				_currAnimeFrameTime = 0.0f;
-				Debug.Log((int)_prevMoveState + " - " + (int)_moveState);
 			}
 
 			return true;
 
 		}
-
-		// Will end curr state and revert to prev state if curr state is
-		//  equal to state to be ended
+		
 		public bool RequestEndState(Structs.BaseMoveStates stateToEnd)
 		{
-			if (_moveState != stateToEnd) return false;
+			// Only end current state if the state to end if the current state
+			//  And if we actually have a state to undo
+			if (_moveState != stateToEnd ||
+			    _moveStack.Count == 0)
+				return false;
 			
-			Debug.Log("Revert MoveState " + (int)_moveState);
-			_animator.SetInteger("MoveState", (int)stateToEnd);
+			// Reset anim graph states
+			_animator.SetBool("Move", _moveStack.Peek() == Structs.BaseMoveStates.Move);
+			_animator.SetBool("Jump", _moveStack.Peek() == Structs.BaseMoveStates.Jump);
 		
-			_moveState = _prevMoveState;
+			_moveState = _moveStack.Peek();
+			_moveStack.Pop();
 			_animFrame = 0;
 			_currAnimeFrameTime = 0.0f;
-			Debug.Log((int)_prevMoveState + " - " + (int)_moveState);
 			return true;
 		}
 
