@@ -19,7 +19,6 @@ namespace Animators
     
 		private SpriteRenderer _spriteRenderer;
 
-		private Structs.MoveDir _moveDir = Structs.MoveDir.Right;
 		private Structs.BaseMoveStates _moveState = Structs.BaseMoveStates.Idle;
 		
 		private Stack<Structs.BaseMoveStates> _moveStack = new Stack<Structs.BaseMoveStates>();
@@ -32,7 +31,6 @@ namespace Animators
 			// Get sprite renderer component
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_animator.SetInteger("MoveState", (int)_moveState);
-			_animator.SetInteger("MoveDir", (int)_moveDir);
 		
 			Assert.NotNull(_spriteRenderer, "Sprite renderer not found, make sure it's a component of the same object");
 
@@ -52,19 +50,6 @@ namespace Animators
 				_spriteRenderer.sprite = newSprite;*/
 				_currAnimeFrameTime = 0.0f;
 			}
-		}
-
-		// Update move direction
-		public void SetMoveDir(Structs.MoveDir dir)
-		{
-			if (dir != _moveDir)
-			{
-				_animator.SetInteger("MoveDir", (int)dir);
-				_animator.SetFloat("MoveDirFl", (float)dir / (float)Structs.MoveDir.Count);
-				_animator.SetTrigger("Right");
-			}
-			
-			_moveDir = dir;
 		}
 
 		public void SetMoveSpeed(Vector2 vec)
