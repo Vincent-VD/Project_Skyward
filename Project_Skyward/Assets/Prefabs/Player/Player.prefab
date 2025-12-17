@@ -203,7 +203,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb8fe8c35bf1c44bb5d59f2d3ce3525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  _attackCooldown: 1
+  _animator: {fileID: 8998485143497534067}
+  _animationStateMachine: {fileID: 7306120107396260385}
+  _attack1Data:
+    moveState: 3
+    totalTime: 1.35
+    hitStart: 0.1
+    hitEnd: 1
+    linkOpen: 1
+    linkClose: 1.4
+    attackSpeed: 2
+  _attack2Data:
+    moveState: 4
+    totalTime: 1.35
+    hitStart: 0.1
+    hitEnd: 1
+    linkOpen: 1
+    linkClose: 1.4
+    attackSpeed: 2
+  _attack3Data:
+    moveState: 5
+    totalTime: 1.35
+    hitStart: 0.1
+    hitEnd: 1
+    linkOpen: 1
+    linkClose: 1.45
+    attackSpeed: 2
+  _attackCooldown: 0
 --- !u!1 &2589935148132517511
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,44 +313,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBase
   _moveSpeed: 5
-  _baseJumpSpeed: 9
+  _baseJumpSpeed: 8
   _gravity: 9.8
   _jumpTime: 1.2
   _jumpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -1.4518486
-      outSlope: -1.4518486
+      time: -0.017623901
+      value: 0.9999695
+      inSlope: 0.008322161
+      outSlope: 0.008322161
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.34721383
-      value: 0.49589807
-      inSlope: Infinity
-      outSlope: Infinity
-      tangentMode: 103
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.19822325
-    - serializedVersion: 3
-      time: 0.67406976
-      value: 2.0099902
-      inSlope: Infinity
-      outSlope: Infinity
-      tangentMode: 1
+      time: 0.5078208
+      value: 1.0043423
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -3.0987926
-      outSlope: -3.0987926
+      time: 1.052887
+      value: 0.50109863
+      inSlope: -0.9232708
+      outSlope: -0.9232708
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -479,7 +496,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
