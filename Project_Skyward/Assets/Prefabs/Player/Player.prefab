@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 5230773271178709856}
   - component: {fileID: 7240738955768661432}
   - component: {fileID: 6522995300136077283}
+  - component: {fileID: 7306120107396260385}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -483,6 +484,35 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &7306120107396260385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627619949857339489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dead6831770c4b74aa46633788f46a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaseAnimationStateMachine
+  _animPriorities:
+  - moveState: 0
+    priority: 0
+  - moveState: 1
+    priority: 1
+  - moveState: 2
+    priority: 3
+  - moveState: 3
+    priority: 4
+  - moveState: 4
+    priority: 4
+  - moveState: 5
+    priority: 4
+  - moveState: 6
+    priority: 5
+  - moveState: 7
+    priority: 9
 --- !u!1 &7500576710576541320
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,24 +639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ddbc872735ec44c9fdbcdb6deda4b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseSpriteAnimator
-  _animFrameTime: 0.2
-  _animPriorities:
-  - moveState: 0
-    priority: 0
-  - moveState: 1
-    priority: 1
-  - moveState: 2
-    priority: 3
-  - moveState: 3
-    priority: 4
-  - moveState: 4
-    priority: 4
-  - moveState: 5
-    priority: 4
-  - moveState: 6
-    priority: 5
-  - moveState: 7
-    priority: 9
   _animator: {fileID: 1169997840780154454}
 --- !u!95 &1169997840780154454
 Animator:
