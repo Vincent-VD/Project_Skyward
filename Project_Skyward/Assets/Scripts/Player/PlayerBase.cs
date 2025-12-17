@@ -1,6 +1,7 @@
 using System;
 using Animators;
 using NUnit.Framework;
+using Structs;
 using Unity.Collections;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Player
 		[SerializeField] private BaseSpriteAnimator _animator;
 		
 		private PlayerInput _playerInput;
+		private StateMachine.BaseAnimationStateMachine _animationStateMachine;
 
 		private float _currCooldown = .0f;
 
@@ -42,6 +44,9 @@ namespace Player
 		{
 			// Get player Transform component
 			_playerTransform = GetComponent<Transform>();
+			
+			// Get animation state machine component
+			_animationStateMachine = GetComponent<StateMachine.BaseAnimationStateMachine>();
 
 			// Get player input component and enable current action map
 			_playerInput = GetComponent<PlayerInput>();
@@ -50,6 +55,7 @@ namespace Player
 
 			// Asserts
 			Assert.IsNotNull(_playerTransform);
+			Assert.IsNotNull(_animationStateMachine);
 			Assert.IsNotNull(_playerInput.currentActionMap);
 			Assert.AreEqual(_playerInput.currentActionMap, InputSystem.actions.FindActionMap("Player"));
 		}
@@ -116,12 +122,16 @@ namespace Player
 			{
 				Vector2 moveVec = _moveVec * (Time.fixedDeltaTime * _moveSpeed);
 				_playerTransform.position += new Vector3(moveVec.x, 0.0f, moveVec.y);
-				_animator.RequestAnimChange(Structs.BaseMoveStates.Move);
+				if (_animationStateMachine.RequestNewState(Structs.BaseMoveStates.Move))
+				{
+					_animator.SetAnimationState(Structs.BaseMoveStates.Move);
+				}
 				_animator.SetMoveSpeed(moveVec);
 			}
 			else
 			{
-				_animator.RequestEndState(Structs.BaseMoveStates.Move);
+				BaseMoveStates state = _animationStateMachine.RequestEndState(Structs.BaseMoveStates.Move);
+				_animator.SetAnimationState(state);
 				_animator.SetMoveSpeed(Vector2.zero);
 			}
 
@@ -134,8 +144,11 @@ namespace Player
 				_currJumpSpeed += -_gravity * curve * Time.fixedDeltaTime;
 				Vector3 vertMove = Vector3.up * (_currJumpSpeed * Time.fixedDeltaTime);
 				_playerTransform.position += vertMove;
-				
-				_animator.RequestAnimChange(Structs.BaseMoveStates.Jump);
+
+				if (_animationStateMachine.RequestNewState(Structs.BaseMoveStates.Jump))
+				{
+					_animator.SetAnimationState(Structs.BaseMoveStates.Jump);
+				}
 			}
 		}
 
@@ -150,7 +163,8 @@ namespace Player
 			if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
 			{
 				_isGrounded = true;
-				_animator.RequestEndState(Structs.BaseMoveStates.Jump);
+				BaseMoveStates state = _animationStateMachine.RequestEndState(Structs.BaseMoveStates.Jump);
+				_animator.SetAnimationState(state);
 			}
 		}
 
