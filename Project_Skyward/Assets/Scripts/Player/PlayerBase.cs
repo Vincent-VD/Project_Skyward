@@ -92,9 +92,7 @@ namespace Player
 					: (input.y >= 0 ? Structs.MoveDir.LeftUp : Structs.MoveDir.LeftDown);
 				
 			}
-
-			GetComponentInChildren<BaseSpriteAnimator>().SetMoveDir(_moveDir);
-
+			
 			// Update attack collider rotation
 			RotateAttackColliderOnMove(input);
 		}
