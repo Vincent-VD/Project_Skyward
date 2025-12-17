@@ -19,6 +19,7 @@ namespace StateMachine
 		private Structs.BaseMoveStates _activeMoveState = Structs.BaseMoveStates.Idle;
 		private Stack<Structs.BaseMoveStates> _moveStateStack = new Stack<Structs.BaseMoveStates>();
 
+		// Returns true if state has been changed
 		public bool RequestNewState(Structs.BaseMoveStates newState)
 		{
 			int newStatePriority = FindAnimPriority(newState);
@@ -31,9 +32,10 @@ namespace StateMachine
 			{
 				_moveStateStack.Push(_activeMoveState);
 				_activeMoveState = newState;
+				return true;
 			}
 
-			return true;
+			return false;
 		}
 
 		// Returns true if state has been ended
