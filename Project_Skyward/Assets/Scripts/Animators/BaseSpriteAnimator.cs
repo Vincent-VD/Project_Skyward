@@ -67,7 +67,8 @@ namespace Animators
 			int newStatePriority = FindAnimPriority(newState);
 			int currStatePriority = FindAnimPriority(_moveState);
 
-			if (newStatePriority < currStatePriority) return false;
+			if (newStatePriority < currStatePriority ||
+			    newState == _moveState) return false;
 
 			if (newState != _moveState)
 			{
