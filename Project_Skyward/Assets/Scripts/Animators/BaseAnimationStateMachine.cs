@@ -36,8 +36,17 @@ namespace StateMachine
 			return true;
 		}
 
-		public Structs.BaseMoveStates RequestEndState(Structs.BaseMoveStates stateToEnd)
+		// Returns true if state has been ended
+		public bool RequestEndState(Structs.BaseMoveStates stateToEnd)
 		{
+			int newStatePriority = FindAnimPriority(stateToEnd);
+			int currStatePriority = FindAnimPriority(_activeMoveState);
+
+			if (currStatePriority > newStatePriority)
+			{
+				return false;
+			}
+			
 			// Only end current state if the state to end if the current state
 			//  And if we actually have a state to undo
 			if (_activeMoveState == stateToEnd ||
@@ -45,9 +54,10 @@ namespace StateMachine
 			{
 				_activeMoveState = _moveStateStack.Peek();
 				_moveStateStack.Pop();
+				return true;
 			}
 
-			return _activeMoveState;
+			return false;
 		}
 
 		public Structs.BaseMoveStates GetMoveState()
