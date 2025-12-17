@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Structs;
 using UnityEngine;
 
 namespace StateMachine
@@ -17,7 +16,7 @@ namespace StateMachine
 
 		[SerializeField] private AnimPriorityTuple[] _animPriorities;
 
-		private Structs.BaseMoveStates _activeMoveState = BaseMoveStates.Idle;
+		private Structs.BaseMoveStates _activeMoveState = Structs.BaseMoveStates.Idle;
 		private Stack<Structs.BaseMoveStates> _moveStateStack = new Stack<Structs.BaseMoveStates>();
 
 		public bool RequestNewState(Structs.BaseMoveStates newState)
