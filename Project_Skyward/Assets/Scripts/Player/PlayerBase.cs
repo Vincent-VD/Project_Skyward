@@ -130,8 +130,10 @@ namespace Player
 			}
 			else
 			{
-				BaseMoveStates state = _animationStateMachine.RequestEndState(Structs.BaseMoveStates.Move);
-				_animator.SetAnimationState(state);
+				if (_animationStateMachine.RequestEndState(Structs.BaseMoveStates.Move))
+				{
+					_animator.SetAnimationState(_animationStateMachine.GetMoveState());
+				}
 				_animator.SetMoveSpeed(Vector2.zero);
 			}
 
@@ -141,8 +143,7 @@ namespace Player
 				float currJumpTime = Mathf.Clamp01(_currJumpTime / _jumpTime);
 
 				float curve = _jumpCurve.Evaluate(currJumpTime);
-				_currJumpSpeed += -_gravity * curve * Time.fixedDeltaTime;
-				Vector3 vertMove = Vector3.up * (_currJumpSpeed * Time.fixedDeltaTime);
+				Vector3 vertMove = Vector3.up * (_currJumpSpeed * curve * Time.fixedDeltaTime);
 				_playerTransform.position += vertMove;
 
 				if (_animationStateMachine.RequestNewState(Structs.BaseMoveStates.Jump))
@@ -163,8 +164,10 @@ namespace Player
 			if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
 			{
 				_isGrounded = true;
-				BaseMoveStates state = _animationStateMachine.RequestEndState(Structs.BaseMoveStates.Jump);
-				_animator.SetAnimationState(state);
+				if (_animationStateMachine.RequestEndState(Structs.BaseMoveStates.Jump))
+				{
+					_animator.SetAnimationState(_animationStateMachine.GetMoveState());
+				}
 			}
 		}
 
