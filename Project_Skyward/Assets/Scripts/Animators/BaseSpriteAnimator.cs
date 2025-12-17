@@ -24,5 +24,10 @@ namespace Animators
 			// Set anim graph states
 			_animator.SetInteger("MoveState", (int)newState);
 		}
+
+		public void SetAttackAnimationSpeed(float speed)
+		{
+			_animator.SetFloat("AttackSpeed", speed);
+		}
 	}
 }
