@@ -303,53 +303,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &464315002
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 464315004}
-  - component: {fileID: 464315003}
-  m_Layer: 0
-  m_Name: SpriteManager
-  m_TagString: Manager
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &464315003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464315002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8977c1ec2a713d41b2bcb054d026ac6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpriteManager
-  _playerAttackRoot: {fileID: 102900000, guid: fa224e95180936348b87fe9c1d160045, type: 3}
-  _playerIdleRoot: {fileID: 102900000, guid: ec032a84b08bbee42818e579d3dcb695, type: 3}
-  _playerMoveRoot: {fileID: 102900000, guid: b786fbf9b4bad504aabd629f37f0f2c4, type: 3}
---- !u!4 &464315004
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464315002}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &592103260
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,5 +757,4 @@ SceneRoots:
   - {fileID: 1507937313}
   - {fileID: 592103264}
   - {fileID: 658307303}
-  - {fileID: 464315004}
   - {fileID: 73298517}
