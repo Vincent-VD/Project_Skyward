@@ -13,7 +13,6 @@ namespace Player
 	{
 		[SerializeField, Header("Movement")] private float _moveSpeed = 5.0f;
 		[SerializeField, Header("Jump")] private float _baseJumpSpeed = 10.0f;
-		[SerializeField] private float _gravity = 9.81f;
 		[SerializeField] private float _jumpTime = 1.5f;
 		[SerializeField] private AnimationCurve _jumpCurve;
 		[SerializeField, Header("Other Components")] private BoxCollider _bodyCollider;
@@ -22,9 +21,6 @@ namespace Player
 		
 		private PlayerInput _playerInput;
 		private StateMachine.BaseAnimationStateMachine _animationStateMachine;
-
-		private float _currCooldown = .0f;
-
 		private Transform _playerTransform;
 		private bool _shouldMove = false;
 		private bool _isOnWall = true;
@@ -34,9 +30,6 @@ namespace Player
 		
 		private float _currJumpSpeed = 0.0f;
 		private float _currJumpTime = 0.0f;
-		
-		private bool bOnce = false;
-
 		
 
 		// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -112,7 +105,6 @@ namespace Player
 			
 			_currJumpSpeed = _baseJumpSpeed;
 			_currJumpTime = 0.0f;
-			_gravity = 9.81f;
 			_isGrounded = false;
 		}
 
