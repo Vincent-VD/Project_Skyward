@@ -74,16 +74,73 @@ namespace Combat
 			_currHealth += damage;
 		}
 
-		private void ApplyModifiers(BaseModifier.ModifierType  modifierType)
+		public void RecalcStat(StatType statType)
 		{
-			int baseDmg = CalcBaseDmg();
+			float statBonus = 0.0f;
 			foreach (BaseModifier modifier in _modifiers)
 			{
-				if (modifier.GetModifierType() == modifierType)
+				statBonus += modifier.GetModifierValueOfType(statType);
+			}
+
+			switch (statType)
+			{
+				case StatType.Health:
 				{
-					
+					UpdateStat(ref _totalHealth, ref _healthBonus, _baseHealth, statBonus);
+					break;
+				}
+				case StatType.Attack:
+				{
+					UpdateStat(ref _totalAttack, ref _attackBonus, _baseAttack, statBonus);
+					break;
+				}
+				case StatType.Defense:
+				{
+					UpdateStat(ref _totalDefense, ref _defenseBonus, _baseDefense, statBonus);
+					break;
+				}
+				case StatType.CritRate:
+				{
+					UpdateStat(ref _totalCritRate, _baseCritRate, statBonus);
+					break;
+				}
+				case StatType.CritDmg:
+				{
+					UpdateStat(ref _totalCritDmg, _baseCritDmg, statBonus);
+					break;
+				}
+				case StatType.MovementSpeed:
+				{
+					UpdateStat(ref _totalMovementSpeed, _baseMovementSpeed, statBonus);
+					break;
+				}
+				case StatType.DebuffApplRate:
+				{
+					UpdateStat(ref _totalDebuffApplRate, _debuffApplRate, statBonus);
+					break;
+				}
+				case StatType.DebuffProcRate:
+				{
+					UpdateStat(ref _totalDebuffProcRate, _debuffProcRate, statBonus);
+					break;
+				}
+				default:
+				{
+					Debug.LogErrorFormat("Invalid/Unhandled stat type: {0}", statType);
+					break;
 				}
 			}
+		}
+
+		private void UpdateStat(ref int totalStat, ref int bonusStat, int baseStat, float statBonus)
+		{
+			totalStat = baseStat + (int)(baseStat * statBonus);
+			bonusStat = totalStat - baseStat;
+		}
+
+		private void UpdateStat(ref float totalStat, float baseStat, float statBonus)
+		{
+			totalStat = baseStat + statBonus;
 		}
 	}
 }
