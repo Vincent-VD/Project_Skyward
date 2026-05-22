@@ -1,5 +1,6 @@
-using System;
+using Structs;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Combat
 {
