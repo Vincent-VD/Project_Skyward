@@ -205,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   _animator: {fileID: 8998485143497534067}
   _animationStateMachine: {fileID: 7306120107396260385}
+  _baseStats: {fileID: 3091846556808318773}
   _attack1Data:
     moveState: 3
     totalTime: 1.35
@@ -275,6 +276,7 @@ GameObject:
   - component: {fileID: 7240738955768661432}
   - component: {fileID: 6522995300136077283}
   - component: {fileID: 7306120107396260385}
+  - component: {fileID: 3091846556808318773}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -530,6 +532,27 @@ MonoBehaviour:
     priority: 5
   - moveState: 7
     priority: 9
+--- !u!114 &3091846556808318773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627619949857339489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29d0014578d4ad469a8bc5a6ec4370e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Combat.BaseStats
+  _baseHealth: 100
+  _baseAttack: 100
+  _baseDefense: 100
+  _baseCritRate: 5
+  _baseCritDmg: 50
+  _baseMovementSpeed: 1
+  _debuffApplRate: 20
+  _debuffProcRate: 20
+  _modifierLimit: 64
 --- !u!1 &7500576710576541320
 GameObject:
   m_ObjectHideFlags: 0
