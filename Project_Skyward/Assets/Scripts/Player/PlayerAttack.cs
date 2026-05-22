@@ -19,7 +19,7 @@ namespace Player
 			public float linkClose;     // latest time a next input can be buffered
 			public float attackSpeed;	// Attack animation speed multiplier
 		}
-		
+
 		[SerializeField] private BaseSpriteAnimator _animator;
 		[SerializeField] private StateMachine.BaseAnimationStateMachine _animationStateMachine;
 		[SerializeField] private BaseStats _baseStats;
@@ -27,7 +27,6 @@ namespace Player
 		[SerializeField, Header("Attack 2")] private AttackData _attack2Data;
 		[SerializeField, Header("Attack 3")] private AttackData _attack3Data;
 		[SerializeField, Header("Cooldown")] private float _attackCooldown;
-
 
 		private BoxCollider _attackCollider;
 
@@ -58,13 +57,13 @@ namespace Player
 				{
 					_attackCollider.enabled = true;
 				}
-				
+
 				// Disable attack hitbox at hitEnd
 				if (_currAnimTime >= _currAnimFrame.hitEnd * _attackSpeedFactor)
 				{
 					_attackCollider.enabled = false;
 				}
-				
+
 				if (_currAnimTime >= _currAnimFrame.totalTime * _attackSpeedFactor)
 				{
 					if (_animationStateMachine.RequestEndState(_currAnimFrame.moveState))
