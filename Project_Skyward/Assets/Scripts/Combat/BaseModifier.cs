@@ -1,5 +1,3 @@
-using System;
-using UnityEngine;
 using Structs;
 
 namespace Combat
