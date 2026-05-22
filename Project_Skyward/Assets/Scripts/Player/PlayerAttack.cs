@@ -1,5 +1,6 @@
 using System;
 using Animators;
+using Combat;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,7 @@ namespace Player
 		
 		[SerializeField] private BaseSpriteAnimator _animator;
 		[SerializeField] private StateMachine.BaseAnimationStateMachine _animationStateMachine;
+		[SerializeField] private BaseStats _baseStats;
 		[SerializeField, Header("Attack 1")] private AttackData _attack1Data;
 		[SerializeField, Header("Attack 2")] private AttackData _attack2Data;
 		[SerializeField, Header("Attack 3")] private AttackData _attack3Data;
@@ -153,6 +155,17 @@ namespace Player
 			}
 			_currAnimFrame = attackData;
 			_isAttacking = true;
+		}
+
+		public void OnCollisionEnter(Collision other)
+		{
+			if (other.gameObject.layer != gameObject.layer &&
+			    (other.gameObject.layer == LayerMask.NameToLayer("Player") ||
+			     other.gameObject.layer == LayerMask.NameToLayer("Enemy")))
+			{
+				int baseDmg = _baseStats.CalcBaseDmg();
+				other.gameObject.GetComponent<BaseStats>().UpdateHealth(baseDmg);
+			}
 		}
 	}
 }
