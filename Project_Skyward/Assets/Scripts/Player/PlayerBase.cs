@@ -1,9 +1,5 @@
-using System;
 using Animators;
 using NUnit.Framework;
-using Structs;
-using Unity.Collections;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

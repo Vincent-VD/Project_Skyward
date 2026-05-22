@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Structs
 {
 	public enum StatType
