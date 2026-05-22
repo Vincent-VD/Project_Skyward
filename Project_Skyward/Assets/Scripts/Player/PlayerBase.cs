@@ -14,7 +14,7 @@ namespace Player
 		[SerializeField, Header("Other Components")] private BoxCollider _bodyCollider;
 		[SerializeField] private GameObject _attackRoot;
 		[SerializeField] private BaseSpriteAnimator _animator;
-		
+
 		private PlayerInput _playerInput;
 		private StateMachine.BaseAnimationStateMachine _animationStateMachine;
 		private Transform _playerTransform;
@@ -23,17 +23,17 @@ namespace Player
 		private Vector2 _moveVec = Vector2.zero;
 
 		private bool _isGrounded = true;
-		
+
 		private float _currJumpSpeed = 0.0f;
 		private float _currJumpTime = 0.0f;
-		
+
 
 		// Start is called once before the first execution of Update after the MonoBehaviour is created
 		void Start()
 		{
 			// Get player Transform component
 			_playerTransform = GetComponent<Transform>();
-			
+
 			// Get animation state machine component
 			_animationStateMachine = GetComponent<StateMachine.BaseAnimationStateMachine>();
 
@@ -65,9 +65,9 @@ namespace Player
 				_shouldMove = false;
 				return;
 			}
-			
+
 			Structs.MoveDir _moveDir;
-			
+
 			// Sprite logic
 			// k = tan(22.5°) ≈ 0.4142
 			// s = tan(67.5°) ≈ 2.4142
@@ -85,9 +85,9 @@ namespace Player
 			{
 				_moveDir = input.x >= 0 ? (input.y >= 0 ? Structs.MoveDir.RightUp : Structs.MoveDir.DownRight)
 					: (input.y >= 0 ? Structs.MoveDir.LeftUp : Structs.MoveDir.LeftDown);
-				
+
 			}
-			
+
 			// Update attack collider rotation
 			RotateAttackColliderOnMove(input);
 		}
@@ -98,7 +98,7 @@ namespace Player
 			{
 				return;
 			}
-			
+
 			_currJumpSpeed = _baseJumpSpeed;
 			_currJumpTime = 0.0f;
 			_isGrounded = false;

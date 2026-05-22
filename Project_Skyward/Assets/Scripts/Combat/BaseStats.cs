@@ -12,13 +12,13 @@ namespace Combat
 		[SerializeField] private int _baseDefense = 100;
 		[SerializeField] private float _baseCritRate = 5.0f;
 		[SerializeField] private float _baseCritDmg = 50.0f;
-		
+
 		// Attribute stats
 		[Header("Attributes")]
 		[SerializeField] private float _baseMovementSpeed = 1.0f;
 		[SerializeField] private int _debuffApplRate = 20;
 		[SerializeField] private int _debuffProcRate = 20;
-		
+
 		[Header("Modifier Limit")]
 		[SerializeField] private int _modifierLimit = 64;
 		private BaseModifier[] _modifiers;
@@ -28,14 +28,16 @@ namespace Combat
 		private int _healthBonus;		// bonus max health above base health
 		private int _attackBonus;		// attack buff based on base attack
 		private int _defenseBonus;		// defense buff based on base defense
-		private float _critRateBonus;	// crit rate buff
-		private float _critDmgBonus;	// crit damage buff
 
 		// Total effective stats
+		private int _totalHealth;
 		private int _totalAttack;
 		private int _totalDefense;
 		private float _totalCritRate;
 		private float _totalCritDmg;
+		private float _totalMovementSpeed;
+		private float _totalDebuffApplRate;
+		private float _totalDebuffProcRate;
 
 		private void Start()
 		{
@@ -43,14 +45,12 @@ namespace Combat
 			_healthBonus = 0;
 			_attackBonus = 0;
 			_defenseBonus = 0;
-			_critRateBonus = 0.0f;
-			_critDmgBonus = 0.0f;
 
 			_totalAttack = _baseAttack;
 			_totalDefense = _baseDefense;
 			_totalCritRate = _baseCritRate;
 			_totalCritDmg = _baseCritDmg;
-			
+
 			_modifiers = new BaseModifier[_modifierLimit];
 		}
 
@@ -58,7 +58,15 @@ namespace Combat
 		//  BaseDmg is damage *before* the target's stats are taken into account
 		public int CalcBaseDmg()
 		{
-			return _totalAttack;
+			int totalDmg = _totalAttack;
+
+			float rand = Random.Range(0.0f, 100.0f);
+			if (rand >= _totalCritRate)
+			{
+				totalDmg = (int)(totalDmg * _totalCritDmg);
+			}
+
+			return totalDmg;
 		}
 
 		// Returns total damage after taking BaseDmg
